@@ -36,6 +36,13 @@ server.use(express.static(staticPath));
 //routers: use
 server.use('/api/notes', routers.notes);
 
+if(process.env.NODE_ENV === 'production') {
+  server.use('*', (req, res) => {
+    const index = path.join(staticPath, 'index.html');
+    res.sendFile(index);
+  });
+}
+
 server.listen(port, () => {
   console.log(`Now listening on port: ${port}`);
 });

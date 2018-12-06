@@ -13,14 +13,15 @@ class HomeContainer extends Component {
     };
   }
 
-  componentDidMount() {
-    locationService.current()
-        .then(coords => {
-          this.setState({ coords: coords });
-        })
-        .catch(err => this.setState({ error: err }));
+  async componentDidMount() {
+    try {
+      const coords = await locationService.current();
+      this.setState({ coords});
+    } catch (error) {
+      this.setState({ error });
+    } 
   }
-
+      
   create = () =>  {
     noteService.create(this.state)
         .then(_ => {
