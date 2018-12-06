@@ -5,8 +5,8 @@ const Note = require('../models/note');
 
 router.get('/', async (req, res) => {
   try {
-  const notes = await Note.find();
-  res.status(200).json({ notes: notes });
+    const notes = await Note.find();
+    res.status(200).json({ notes: notes });
   } catch(e) {
     res.status(500).json({ message: 'Server Error'});
   }
@@ -14,8 +14,8 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-  const note = await Note.findById(req.params.id);
-  res.status(200).json({ note: note });
+    const note = await Note.findById(req.params.id);
+    res.status(200).json({ note: note });
   } catch(e) {
     res.status(500).json({ message: 'Server Error '});
   }
@@ -34,10 +34,10 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-  const { id } = req.params;
-  const { text } = req.body;
-  await Note.findByIdAndUpdate(id, { text: text });
-  res.status(200).json({ message: 'successful'});
+    const { id } = req.params;
+    const { text } = req.body;
+    await Note.findByIdAndUpdate(id, { text: text });
+    res.status(200).json({ message: 'successful'});
   } catch(e) {
     res.status(500).json({ message: 'Server Error'});
   }
