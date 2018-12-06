@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const note = await Note.findById(req.params.id);
+    const note = await Note.findOne({ id: req.params.id });
     res.status(200).json({ note: note });
   } catch(e) {
     res.status(500).json({ message: 'Server Error '});
@@ -36,7 +36,7 @@ router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { text } = req.body;
-    await Note.findByIdAndUpdate(id, { text: text });
+    await Note.findOneAndUpdate({id:id }, { text: text });
     res.status(200).json({ message: 'successful'});
   } catch(e) {
     res.status(500).json({ message: 'Server Error'});
@@ -45,7 +45,7 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
-  await Note.findByIdAndRemove(id);
+  await Note.findByIdAndRemove({ id: id });
   res.status(200).json({ message: 'successfully deleted' });
 });
 
